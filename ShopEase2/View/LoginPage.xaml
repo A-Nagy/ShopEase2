@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShopEase2.View.LoginPage"
+       
+             Title="LoginPage"
+             BackgroundColor="#F8FAFC">
+    <ScrollView>
+        <VerticalStackLayout Padding="24,36" Spacing="18">
+            <Label Text="ShopEase"
+                   FontSize="34"
+                   FontAttributes="Bold"
+                   TextColor="#4F46E5"
+                   HorizontalOptions="Center" />
+            <Label Text="Welcome back"
+                   FontSize="25"
+                   FontAttributes="Bold" />
+            <Label Text="Sign in to explore products"
+                   TextColor="#64748B" />
+
+            <Border BackgroundColor="White"
+                    Stroke="#E2E8F0"
+                    Padding="14">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Username or email" />
+                    <Entry Placeholder="Enter your username"
+                           ReturnType="Next"
+                           ClearButtonVisibility="WhileEditing" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="White"
+                    Stroke="#E2E8F0"
+                    Padding="14">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Password" />
+                    <Entry Placeholder="Enter your password"
+                           IsPassword="True"
+                           ReturnType="Done" />
+                </VerticalStackLayout>
+            </Border>
+
+            <HorizontalStackLayout Spacing="8">
+                <CheckBox IsChecked="False" />
+                <Label Text="Remember me"
+                       VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Button Text="Sign in"
+                    HeightRequest="50"
+                    BackgroundColor="#4F46E5"
+                    TextColor="White" />
+            <Button Text="Use demo account"
+                    BackgroundColor="Transparent"
+                    TextColor="#4F46E5" />
+            <Label Text="New here? Create an account"
+                   HorizontalOptions="Center"
+                   TextColor="#64748B" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+
+</ContentPage>

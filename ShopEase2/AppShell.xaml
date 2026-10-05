@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ShopEase2.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ShopEase2"
+    xmlns:views="clr-namespace:ShopEase2.View"
+    Title="ShopEase2">
+
+    <TabBar Route="preview">
+
+        <ShellContent
+          Title="Login"       
+          Route="login"
+          ContentTemplate="{DataTemplate views:LoginPage}"
+          />
+
+        <ShellContent
+            Title="Splash"       
+            Route="splash"
+            ContentTemplate="{DataTemplate views:SplashPage}"
+            />
+
+    </TabBar>
+</Shell>

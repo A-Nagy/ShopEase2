@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShopEase2.MainPage"
+             Title="ShopEase">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="18">
+            <Label x:Name="PageHeading"
+                   Text="ShopEase XAML practice"
+                   FontSize="26"
+                   FontAttributes="Bold" />
+
+            <Label Text="Margin separates neighbors; Padding creates inner space."
+                   Margin="0,0,0,8" />
+
+            <Border Stroke="#D1D5DB"
+                    StrokeThickness="1"
+                    Padding="12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="Auto,*"
+                      RowDefinitions="Auto,Auto"
+                      ColumnSpacing="10"
+                      RowSpacing="8">
+                    <Label Text="Name" Grid.Row="0" Grid.Column="0" />
+                    <Entry Placeholder="Your name"
+                           Grid.Row="0"
+                           Grid.Column="1" />
+                    <Label Text="City" Grid.Row="1" Grid.Column="0" />
+                    <Picker Title="Choose a city"
+                            Grid.Row="1"
+                            Grid.Column="1">
+                        <Picker.Items>
+                            <x:String>Cairo</x:String>
+                            <x:String>Giza</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Grid>
+            </Border>
+
+            <HorizontalStackLayout Spacing="12">
+                <CheckBox IsChecked="True" />
+                <Label Text="Remember this choice"
+                       VerticalOptions="Center" />
+                <Switch IsToggled="False" />
+            </HorizontalStackLayout>
+
+            <FlexLayout Direction="Row"
+                        Wrap="Wrap"
+                        AlignItems="Center">
+                <Label Text="Responsive" Margin="0,0,12,8" />
+                <Label Text="Flexible" Margin="0,0,12,8" />
+                <Label Text="Layout" Margin="0,0,12,8" />
+            </FlexLayout>
+
+            <ActivityIndicator IsRunning="True"
+                               Color="#4F46E5"
+                               HorizontalOptions="Start" />
+            <Button Text="Static sample button" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

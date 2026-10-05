@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ShopEase2.View"
+             x:Class="ShopEase2.View.SplashPage"
+             Title="SplashPage"          
+             >
+
+    <Grid Padding="24"
+          RowDefinitions="*,Auto,*">
+
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="18"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center">
+
+            <Image Source="logo.png"
+                   WidthRequest="128"
+                   HeightRequest="128"
+                   HorizontalOptions="Center"
+                   SemanticProperties.Description="ShopEase shopping bag logo" />
+
+            <Label Text="ShopEase"
+                   FontFamily="OpenSansSemibold"
+                   FontSize="32"
+                   HorizontalTextAlignment="Center" />
+
+            <Label Text="Find your next favorite"
+                   Style="{StaticResource SubtitleLabel}"
+                   HorizontalTextAlignment="Center" />
+
+            <ActivityIndicator IsRunning="True"
+                               Color="{StaticResource Primary}"
+                               HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+
+</ContentPage>
