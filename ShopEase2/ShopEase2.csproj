@@ -65,12 +65,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\LoginPage.xaml">
+	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\SplashPage.xaml">
+	  <MauiXaml Update="Views\SplashPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Helpers\Converters\" />
+	  <Folder Include="Models\" />
+	  <Folder Include="Constants\" />
+	  <Folder Include="Messages\" />
+	  <Folder Include="Services\Api\" />
+	  <Folder Include="Services\Mock\" />
+	  <Folder Include="Services\Abstractions\" />
+	  <Folder Include="Services\Local\" />
+	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 
 </Project>
