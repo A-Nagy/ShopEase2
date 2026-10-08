@@ -8,7 +8,7 @@ namespace ShopEase2.Constants
 {
     public  class AppConstants
     {
-        public const string ApiBaseUrl = "/";
+        public const string ApiBaseUrl = "https://dummyjson.com/";
         public const int    PageSize = 20;
         public const int    SearchDebounceMs  = 400;
         public const int    MinSplashMs = 1500;

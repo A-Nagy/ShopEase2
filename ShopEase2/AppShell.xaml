@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="ShopEase2.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ShopEase2"
-    xmlns:views="clr-namespace:ShopEase2.View"
-    Title="ShopEase2">
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:ShopEase2"
+       xmlns:views="clr-namespace:ShopEase2.Views"
+       x:Class="ShopEase2.AppShell"
+       x:DataType="local:AppShell"
+       Shell.FlyoutBehavior="Disabled"
+       Title="ShopEase">
 
-    <TabBar Route="preview">
+    <!-- NEW (Day 2.B4): Replace the temporary preview tabs with root routes. -->
 
-        <ShellContent
-          Title="Login"       
-          Route="login"
-          ContentTemplate="{DataTemplate views:LoginPage}"
-          />
+    <!--<ShellContent Title="Splash"
+                  Route="splash"
+                  ContentTemplate="{DataTemplate views:SplashPage}" />
 
-        <ShellContent
-            Title="Splash"       
-            Route="splash"
-            ContentTemplate="{DataTemplate views:SplashPage}"
-            />
+    <ShellContent Title="Login"
+                  Route="login"
+                  ContentTemplate="{DataTemplate views:LoginPage}" />-->
 
-    </TabBar>
+    <ShellContent Title="Home"
+               Route="home"
+               ContentTemplate="{DataTemplate views:HomePage}"></ShellContent>
+
+
 </Shell>

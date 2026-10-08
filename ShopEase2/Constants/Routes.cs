@@ -10,8 +10,8 @@ namespace ShopEase2.Constants
     {
         public const string Splash = "/splash";
         public const string Register = "register";
-        public const string Login = "/login";
-        public const string Home = "/home";
+        public const string Login = "//login";
+        public const string Home = "home";
         public const string Setting = "/setting";
         public const string Products = "/products";
         public const string ProductDetails = "/products/{id}";

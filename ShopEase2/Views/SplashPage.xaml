@@ -2,17 +2,36 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ShopEase2.View"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:ShopEase2.ViewModels"
              x:Class="ShopEase2.View.SplashPage"
-             Title="SplashPage"          
+             x:Name="SplashRoot"
+             Title="SplashPage" 
+             x:DataType="vm:SplashViewModel"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
              >
+
+    <ContentPage.Behaviors>
+
+        <toolkit:EventToCommandBehavior
+            x:DataType="{x:Null}"
+            EventName="Appearing"
+            BindingContext="{Binding Source={x:Reference SplashRoot},
+                                     Path=BindingContext}"
+            Command="{Binding InitializeCommand}" />
+
+    </ContentPage.Behaviors>
 
     <Grid Padding="24"
           RowDefinitions="*,Auto,*">
 
-        <VerticalStackLayout Grid.Row="1"
-                             Spacing="18"
-                             HorizontalOptions="Center"
-                             VerticalOptions="Center">
+        <VerticalStackLayout
+            Grid.Row="1"
+            Spacing="18"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
 
             <Image Source="logo.png"
                    WidthRequest="128"
@@ -29,13 +48,13 @@
                    Style="{StaticResource SubtitleLabel}"
                    HorizontalTextAlignment="Center" />
 
-            <ActivityIndicator IsRunning="True"
-                               Color="{StaticResource Primary}"
-                               HorizontalOptions="Center" />
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                Color="{StaticResource Primary}"
+                HorizontalOptions="Center" />
 
         </VerticalStackLayout>
 
     </Grid>
-
-
 </ContentPage>

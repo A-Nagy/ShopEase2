@@ -23,9 +23,10 @@ namespace ShopEase2.ViewModels
         [NotifyPropertyChangedFor(nameof(HasError))]
         private string? _errorMessage;
 
-        public bool IsNotBusy => !_isBusy;
+        public bool IsNotBusy =>
+            !IsBusy;
 
         public bool HasError =>
-            !string.IsNullOrWhiteSpace(_errorMessage);
+            !string.IsNullOrWhiteSpace(ErrorMessage);
     }
 }

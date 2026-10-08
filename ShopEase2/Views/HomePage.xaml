@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:ShopEase2.ViewModels"
+             xmlns:models="clr-namespace:ShopEase2.Models"
+             xmlns:conv ="clr-namespace:ShopEase2.Helpers.Converters"
+             x:Class="ShopEase2.Views.HomePage"
+             x:Name="HomeRoot"
+             x:DataType="vm:HomeViewModel"
+             Title="HomePage"
+             
+             >
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+
+            <conv:DiscountBadgeConverter
+                x:Key="DiscountBadge" />
+
+            <conv:RatingToStarsConverter
+                x:Key="RatingStars" />
+
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+
+        <toolkit:StatusBarBehavior
+            StatusBarColor="{StaticResource Primary}"
+            StatusBarStyle="LightContent"
+            ApplyOn="OnPageNavigatedTo" />
+
+        <!-- NEW (Day 4): Load data when the page appears. -->
+        <toolkit:EventToCommandBehavior
+            x:DataType="{x:Null}"
+            EventName="Appearing"
+            BindingContext="{Binding Source={x:Reference HomeRoot},
+                                     Path=BindingContext}"
+            Command="{Binding LoadCommand}" />
+
+    </ContentPage.Behaviors>
+
+    <Grid RowDefinitions="*,Auto">
+
+        <RefreshView
+            Grid.Row="0"
+            Command="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
+
+            <CollectionView
+                ItemsSource="{Binding Products}"
+                ItemsLayout="VerticalGrid, 2"
+                RemainingItemsThreshold="2"
+                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+
+                <CollectionView.Header>
+
+                    <VerticalStackLayout
+                        Padding="16,16,16,12"
+                        Spacing="14">
+
+                        <Label
+                            Text="Discover"
+                            Style="{StaticResource TitleLabel}"
+                            FontSize="{OnIdiom Phone=28,
+                                               Tablet=34,
+                                               Desktop=34}" />
+
+                        <CarouselView
+                            x:Name="Offers"
+                            ItemsSource="{Binding Banners}"
+                            HeightRequest="{OnIdiom Phone=136,
+                                                   Tablet=190,
+                                                   Desktop=190}"
+                            IndicatorView="BannerDots">
+
+                            <CarouselView.ItemTemplate>
+
+                                <DataTemplate
+                                    x:DataType="models:BannerItem">
+
+                                    <Border
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 18"
+                                        Margin="3"
+                                        Padding="18"
+                                        BackgroundColor="{StaticResource Primary}">
+
+                                        <VerticalStackLayout
+                                            VerticalOptions="Center"
+                                            Spacing="8">
+
+                                            <Label
+                                                Text="{Binding Title}"
+                                                FontSize="22"
+                                                TextColor="{StaticResource White}" />
+
+                                            <Label
+                                                Text="{Binding Subtitle}"
+                                                TextColor="{StaticResource White}" />
+
+                                        </VerticalStackLayout>
+
+                                    </Border>
+
+                                </DataTemplate>
+
+                            </CarouselView.ItemTemplate>
+
+                        </CarouselView>
+
+                        <IndicatorView
+                            x:Name="BannerDots"
+                            HorizontalOptions="Center"
+                            IndicatorColor="{StaticResource MutedLight}"
+                            SelectedIndicatorColor="{StaticResource Primary}" />
+
+                        <SearchBar
+                            Placeholder="Search products"
+                            Text="{Binding SearchText,
+                                           Mode=TwoWay}"
+                            SearchCommand="{Binding SearchCommand}" />
+
+                        <CollectionView
+                            ItemsSource="{Binding Categories}"
+                            ItemsLayout="HorizontalList"
+                            HeightRequest="56"
+                            HorizontalScrollBarVisibility="Never">
+
+                            <CollectionView.ItemTemplate>
+
+                                <DataTemplate
+                                    x:DataType="models:CategoryItem">
+
+                                    <Border
+                                        Style="{StaticResource Chip}"
+                                        Margin="0,3,8,3">
+
+                                        <Border.Triggers>
+
+                                            <DataTrigger
+                                                TargetType="Border"
+                                                Binding="{Binding IsSelected}"
+                                                Value="True">
+
+                                                <Setter
+                                                    Property="BackgroundColor"
+                                                    Value="{StaticResource Primary}" />
+
+                                                <Setter
+                                                    Property="Stroke"
+                                                    Value="{StaticResource Primary}" />
+
+                                            </DataTrigger>
+
+                                        </Border.Triggers>
+
+                                        <Border.GestureRecognizers>
+
+                                            <TapGestureRecognizer
+                                                x:DataType="{x:Null}"
+                                                Command="{Binding Source={x:Reference HomeRoot},
+                                                                  Path=BindingContext.SelectCategoryCommand}"
+                                                CommandParameter="{Binding .}" />
+
+                                        </Border.GestureRecognizers>
+
+                                        <Label
+                                            Text="{Binding Name}"
+                                            VerticalOptions="Center">
+
+                                            <Label.Triggers>
+
+                                                <DataTrigger
+                                                    TargetType="Label"
+                                                    Binding="{Binding IsSelected}"
+                                                    Value="True">
+
+                                                    <Setter
+                                                        Property="TextColor"
+                                                        Value="{StaticResource White}" />
+
+                                                </DataTrigger>
+
+                                            </Label.Triggers>
+
+                                        </Label>
+
+                                    </Border>
+
+                                </DataTemplate>
+
+                            </CollectionView.ItemTemplate>
+
+                        </CollectionView>
+
+                        <Grid
+                            ColumnDefinitions="*,Auto"
+                            ColumnSpacing="10">
+
+                            <Picker
+                                Title="Sort by"
+                                ItemsSource="{Binding SortOptions}"
+                                ItemDisplayBinding="{Binding Label}"
+                                SelectedItem="{Binding SelectedSort,
+                                                       Mode=TwoWay}" />
+
+                            <!-- Corrected from Day 4 SortCommand. -->
+                            <Button
+                                Grid.Column="1"
+                                Text="Apply"
+                                Style="{StaticResource SecondaryButton}"
+                                Command="{Binding ApplyFiltersCommand}" />
+
+                        </Grid>
+
+                        <Grid
+                            ColumnDefinitions="*,Auto"
+                            ColumnSpacing="10">
+
+                            <Picker
+                                Title="Maximum price"
+                                ItemsSource="{Binding PriceLimits}"
+                                ItemDisplayBinding="{Binding Label}"
+                                SelectedItem="{Binding SelectedPriceLimit,
+                                                       Mode=TwoWay}" />
+
+                            <Label
+                                Grid.Column="1"
+                                Text="Price"
+                                VerticalOptions="Center" />
+
+                        </Grid>
+
+                        <Label
+                            Text="Minimum rating" />
+
+                        <Slider
+                            Minimum="0"
+                            Maximum="5"
+                            Value="{Binding MinRating,
+                                            Mode=TwoWay}" />
+
+                        <Label
+                            Text="{Binding MinRating,
+                                           StringFormat='At least {0:N0} stars'}" />
+
+                        <Grid
+                            ColumnDefinitions="*,Auto"
+                            ColumnSpacing="10">
+
+                            <Button
+                                Text="Apply filters"
+                                Command="{Binding ApplyFiltersCommand}"
+                                Style="{StaticResource SecondaryButton}" />
+
+                            <Button
+                                Grid.Column="1"
+                                Text="Clear"
+                                Command="{Binding ClearFiltersCommand}"
+                                Style="{StaticResource LinkButton}" />
+
+                        </Grid>
+
+                        <Label
+                            Text="Products"
+                            FontSize="20"
+                            FontFamily="OpenSansSemibold" />
+
+                        <Label
+                            Text="{Binding ErrorMessage}"
+                            Style="{StaticResource ErrorLabel}"
+                            IsVisible="{Binding HasError}" />
+
+                        <Button
+                            Text="Retry"
+                            Command="{Binding RetryCommand}"
+                            Style="{StaticResource LinkButton}"
+                            IsVisible="{Binding HasError}" />
+
+                    </VerticalStackLayout>
+
+                </CollectionView.Header>
+
+                <CollectionView.EmptyView>
+
+                    <VerticalStackLayout
+                        x:DataType="{x:Null}"
+                        Padding="24"
+                        Spacing="8"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="No matching products"
+                            Style="{StaticResource SubtitleLabel}" />
+
+                        <Label
+                            Text="Try another search or category." />
+
+                    </VerticalStackLayout>
+
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate
+                        x:DataType="models:Product">
+
+                        <Border
+                            Style="{StaticResource CardBorder}"
+                            Margin="7"
+                            Padding="10">
+
+                            <Border.Shadow>
+
+                                <Shadow
+                                    Brush="{StaticResource Black}"
+                                    Opacity="0.12"
+                                    Radius="8"
+                                    Offset="0,3" />
+
+                            </Border.Shadow>
+
+                            <VerticalStackLayout
+                                Spacing="8">
+
+                                <Image
+                                    Source="{Binding Thumbnail}"
+                                    HeightRequest="{OnPlatform Android=116,
+                                                            WinUI=140}"
+                                    Aspect="AspectFit" />
+
+                                <Label
+                                    Text="{Binding Title}"
+                                    FontFamily="OpenSansSemibold"
+                                    MaxLines="2"
+                                    LineBreakMode="TailTruncation" />
+
+                                <Label
+                                    Text="{Binding Rating,
+                                                   Converter={StaticResource RatingStars}}"
+                                    TextColor="{StaticResource Accent}" />
+
+                                <Grid
+                                    ColumnDefinitions="*,Auto">
+
+                                    <Label
+                                        Text="{Binding DiscountedPrice,
+                                                       StringFormat='${0:N2}'}"
+                                        Style="{StaticResource PriceLabel}"
+                                        FontSize="16" />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding DiscountPercentage,
+                                                       Converter={StaticResource DiscountBadge}}"
+                                        TextColor="{StaticResource Danger}" />
+
+                                </Grid>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </RefreshView>
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            Spacing="4">
+
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                Color="{StaticResource Primary}" />
+
+            <Label
+                Text="Loading more products..."
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsLoadingMore}" />
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+</ContentPage>
